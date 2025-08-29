@@ -57,7 +57,6 @@ public class Application implements CommandLineRunner {
 			System.out.println("Your SQL is Question 2.");
 		}
 
-		// 1) Call generateWebhook
 		String generateUrl = "https://bfhldevapigw.healthrx.co.in/hiring/generateWebhook/JAVA";
 		Map<String, Object> generatePayload = new HashMap<>();
 		generatePayload.put("name", candidateName);
@@ -83,7 +82,7 @@ public class Application implements CommandLineRunner {
 			String webhook = getString(body, "webhook");
 
 			if (webhook == null || webhook.isEmpty()) {
-				webhook = getString(body, "webhookUrl"); // fallback
+				webhook = getString(body, "webhookUrl"); 
 			}
 
 			System.out.println("Received accessToken: " + (accessToken != null ? "[REDACTED]" : "null"));
@@ -95,7 +94,6 @@ public class Application implements CommandLineRunner {
 				return;
 			}
 
-			// 2) Load final SQL
 			String finalQuery = loadFinalQuery();
 			if (finalQuery == null || finalQuery.trim().isEmpty()) {
 				System.err.println("ERROR: final SQL query not found.");
@@ -104,7 +102,6 @@ public class Application implements CommandLineRunner {
 			}
 			finalQuery = finalQuery.trim();
 
-			// 3) Submit SQL
 			String submitUrl = "https://bfhldevapigw.healthrx.co.in/hiring/testWebhook/JAVA";
 			Map<String, Object> submitPayload = new HashMap<>();
 			submitPayload.put("finalQuery", finalQuery);
